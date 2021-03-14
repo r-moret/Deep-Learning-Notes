@@ -1,0 +1,11 @@
+deep-learning-specialization
+deep-learning-basics
+whats-binary-classification
+logistic-regression
+cost-function
+gradient-descent
+remembering-the-chain-rule
+applying-gradient-descent-to-log.-regression
+one-example
+m-examples-of-our-training-set
+algorithm

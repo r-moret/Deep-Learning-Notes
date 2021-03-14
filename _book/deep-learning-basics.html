@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Deep Learning Basics | Deep Learning Notes</title>
+  <meta name="description" content="Chapter 2 Deep Learning Basics | Deep Learning Notes" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Deep Learning Basics | Deep Learning Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Deep Learning Basics | Deep Learning Notes" />
+  
+  
+  
+
+<meta name="author" content="Rafael Moret Galán" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Deep Learning Notes</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Deep Learning Specialization</a></li>
+<li class="chapter" data-level="2" data-path="deep-learning-basics.html"><a href="deep-learning-basics.html"><i class="fa fa-check"></i><b>2</b> Deep Learning Basics</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="deep-learning-basics.html"><a href="deep-learning-basics.html#whats-binary-classification"><i class="fa fa-check"></i><b>2.1</b> What’s Binary Classification?</a></li>
+<li class="chapter" data-level="2.2" data-path="deep-learning-basics.html"><a href="deep-learning-basics.html#logistic-regression"><i class="fa fa-check"></i><b>2.2</b> Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="deep-learning-basics.html"><a href="deep-learning-basics.html#cost-function"><i class="fa fa-check"></i><b>2.2.1</b> Cost Function</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="deep-learning-basics.html"><a href="deep-learning-basics.html#gradient-descent"><i class="fa fa-check"></i><b>2.3</b> Gradient Descent</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="deep-learning-basics.html"><a href="deep-learning-basics.html#remembering-the-chain-rule"><i class="fa fa-check"></i><b>2.3.1</b> Remembering the Chain Rule</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="deep-learning-basics.html"><a href="deep-learning-basics.html#applying-gradient-descent-to-log.-regression"><i class="fa fa-check"></i><b>2.4</b> Applying Gradient Descent to Log. Regression</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="deep-learning-basics.html"><a href="deep-learning-basics.html#one-example"><i class="fa fa-check"></i><b>2.4.1</b> One example of our training set</a></li>
+<li class="chapter" data-level="2.4.2" data-path="deep-learning-basics.html"><a href="deep-learning-basics.html#m-examples-of-our-training-set"><i class="fa fa-check"></i><b>2.4.2</b> m examples of our training set</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Deep Learning Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="deep-learning-basics" class="section level1" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Deep Learning Basics</h1>
+<div id="whats-binary-classification" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> What’s Binary Classification?</h2>
+<p>Binary Classification is a kind of problem in which we want to learn a classifier that can predict the output label from certain input features.
+That label just has two possible values.</p>
+</div>
+<div id="logistic-regression" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Logistic Regression</h2>
+<p>Is a learning algorithm suited for binary classification problems, where the output is a 0/1 label.</p>
+<p>Given <span class="math inline">\(x \in \mathbb{R}^{n_x}\)</span>, want: <span class="math display">\[\hat{y} = P(y = 1 | x)\]</span><br />
+<strong>Parameters</strong>: <span class="math inline">\(w \in \mathbb{R}^{n_x}, b \in \mathbb{R}\)</span><br />
+<strong>Output</strong>: <span class="math inline">\(\hat{y} = \sigma (w^Tx + b)\)</span></p>
+<p>Where <span class="math inline">\(\sigma\)</span> is the sigmoid function:</p>
+<p align="center">
+<img src="images/sigmoid.png" title="fig:" style="width:50.0%" alt="Sigmoid function" />
+</p>
+<p><span class="math display">\[\sigma (z) = \frac{1}{1 + e^{-z}}\]</span></p>
+<div id="cost-function" class="section level3" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Cost Function</h3>
+<p>Given <span class="math inline">\({(x^1, y^1), ..., (x^m, y^m)}\)</span>, we want <span class="math inline">\(\hat{y}^i \approx y^i\)</span></p>
+<p>Now, we need a function to measure how well our algorithm is doing (<strong>Loss/error function</strong>). For example, we could use:</p>
+<ul>
+<li><span class="math inline">\(\mathcal{L}(\hat{y},y) = \frac{1}{2}(\hat{y}-y)^2\)</span></li>
+</ul>
+<p>The problem is that that function make our <strong>optimization problem non-convex</strong>, what means that will have multiple local optimum and our <strong>Gradient Descent</strong> algorithm may not find the global optimum.</p>
+<p>The loss function that we want to really use is: <span class="math display">\[\mathcal{L}(\hat{y},y) = -(y \log (\hat{y}) + (1-y) \log(1-\hat{y}))\]</span></p>
+<p>But, we need to know how well is doing the algorithm (the selection of our parameters) in the entire training set, not just a single example. For that reason we need a <strong>Cost function</strong>:
+<span class="math display">\[J(w,b) = \frac{1}{m} \sum^{m}_{i=1} L(\hat{y}^{(i)},y^{(i)})= -\frac{1}{m} \sum^{m}_{i=1} y^{(i)}\log (y^{(i)}) + (1 - y^{(i)}) \log (1-\hat{y}^{(i)})\]</span></p>
+<ul>
+<li><strong>Loss function</strong> (<span class="math inline">\(\mathcal{L}\)</span>): Just applied to one single training example.</li>
+<li><strong>Cost function</strong> (<span class="math inline">\(J\)</span>): Cost of our parameter. The average of the loss functions of the entire training set.</li>
+</ul>
+</div>
+</div>
+<div id="gradient-descent" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Gradient Descent</h2>
+<p>Now that we can measure how well our selection of the parameters is, the next logical step would be to determine those parameters trying to maximize how good they are, in other words, minimizing the error made.</p>
+<p>Want to find <span class="math inline">\(w,b\)</span> that minimize <span class="math inline">\(J(w,b)\)</span>.</p>
+<p align="center">
+<img src="images/convex.png" style="width:50.0%" alt="Convex function" /><br />
+<em>Convex (one optimum) error function</em>
+</p>
+<p>What <strong>Gradient Descent</strong> will do is start at an initial point (initialization) and iteratively take some steps in the steepest downhill direction updating the value of both parameters until it converges to the global optimum.</p>
+<blockquote>
+<p>Repeat {<br />
+ <span class="math inline">\(w := w - \alpha \frac{\partial J(w,b)}{\partial w}\)</span></p>
+<p> <span class="math inline">\(b := b - \alpha \frac{\partial J(w,b)}{\partial b}\)</span><br />
+}</p>
+</blockquote>
+<p>Where <span class="math inline">\(\alpha\)</span> is a parameter known as <strong><em>Learning Rate</em></strong>.</p>
+<p align="center">
+<img src="images/exec_gradient.png" style="width:50.0%" alt="Execution of GD" /><br />
+<em>Two possible execution of Gradient Descent (simplified)</em>
+</p>
+<div id="remembering-the-chain-rule" class="section level3" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Remembering the Chain Rule</h3>
+<blockquote>
+<p>Using the <strong>Chain Rule</strong> we can decompose some derivatives in other simpler derivatives terms.</p>
+</blockquote>
+<p>Suppose:</p>
+<p><span class="math display">\[
+a = f(x), x = g(y), y = h(z)
+\]</span>
+We can compute the derivative <span class="math inline">\(\frac{\partial a}{\partial z}\)</span> like:
+<span class="math display">\[
+\frac{\partial a}{\partial z} \stackrel{(Ch.rule)}{=} \\ 
+\frac{\partial a}{\partial y} \frac{\partial y}{\partial z} \stackrel{(Ch.rule)}{=} \frac{\partial a}{\partial x} \frac{\partial x}{\partial y} \frac{\partial y}{\partial z} = \\ 
+\frac{\partial f(x)}{\partial x} \frac{\partial g(y)}{\partial y} \frac{\partial h(z)}{\partial z}
+\]</span></p>
+<p>With the <strong>Chain Rule</strong> we can compute the product of all of those three derivatives above and calculate <span class="math inline">\(\frac{\partial a}{\partial z}\)</span> easily.</p>
+</div>
+</div>
+<div id="applying-gradient-descent-to-log.-regression" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Applying Gradient Descent to Log. Regression</h2>
+<p>In order to apply Gradient Descent we just need to compute the derivatives terms of the parameters of our model.</p>
+<p>In other words, we just need to go backwards in the <em>computation graph</em> to obtain the derivatives with respect to the first terms of the graph: the parameters of our model.</p>
+<div id="one-example" class="section level3" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> One example of our training set</h3>
+<p align="center">
+<img src="images/graph_log_reg.png" style="width:60.0%" alt="Computation graph for Logistic Regression" /><br />
+<em>Computation graph for Logistic Regression</em>
+</p>
+<ul>
+<li>“<span class="math inline">\(da\)</span>” <span class="math inline">\(= \frac{\partial \mathcal{L}(a,y)}{\partial a} = - \frac{y}{a} + \frac{1-y}{1-a}\)</span></li>
+<li>“<span class="math inline">\(dz\)</span>” <span class="math inline">\(= \frac{\partial \mathcal{L}(a,y)}{\partial z} = \frac{\partial \mathcal{L}}{\partial a} \frac{\partial a}{\partial z} = a - y\)</span></li>
+<li>“<span class="math inline">\(dwi\)</span>” <span class="math inline">\(= \frac{\partial \mathcal{L}(a,y)}{\partial w_i} = \frac{\partial \mathcal{L}}{\partial a} \frac{\partial a}{\partial z} \frac{\partial z}{\partial w_i} = x_i \frac{\partial \mathcal{L}}{\partial z}\)</span></li>
+<li>“<span class="math inline">\(db\)</span>” <span class="math inline">\(= \frac{\partial \mathcal{L}(a,y)}{\partial b} = \frac{\partial \mathcal{L}}{\partial a} \frac{\partial a}{\partial z} \frac{\partial z}{\partial b} = \frac{\partial \mathcal{L}}{\partial z}\)</span></li>
+</ul>
+<p>Pay attention to that the derivatives terms that we want in order to apply <strong>Gradient Descent</strong> are <span class="math inline">\(\frac{\partial \mathcal{L}(a,y)}{\partial w_i}\)</span> and <span class="math inline">\(\frac{\partial \mathcal{L}(a,y)}{\partial b}\)</span></p>
+<hr />
+<p>* <strong>Note</strong>: <span class="math inline">\(\frac{\partial a}{\partial z}\)</span> is the derivative of the sigmoid function (<span class="math inline">\(a(1-a)\)</span>)</p>
+</div>
+<div id="m-examples-of-our-training-set" class="section level3" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> m examples of our training set</h3>
+<p><span class="math display">\[
+J(w,b) = \frac{1}{m} \sum^m_{i=1} \mathcal{L}(a^{(i)},y^{i})\\
+a^{(i)} = \hat{y}^{(i)} = \sigma (z^{(i)}) = \sigma (w^Tx^{(i)} + b)
+\]</span></p>
+<p>As we can see, the <strong>Cost function</strong> is the average of the individual losses so we can intuit that the derivative with respect the parameters also is going to be the average, but this time of the derivatives of the individual loss terms.</p>
+<p><span class="math display">\[
+\frac{\partial}{\partial w_i}J(w,b) = \frac{1}{m} \sum^m_{i=1}\frac{\partial}{\partial w_i} \mathcal{L}(a^{(i)},y^{(i)})
+\]</span></p>
+<p>Being <span class="math inline">\(\frac{\partial}{\partial w_i}\mathcal{L}(a,y)\)</span> the derivative term that we computed in the <a href="deep-learning-basics.html#one-example">previous example</a>.</p>
+<div id="algorithm" class="section level4" number="2.4.2.1">
+<h4><span class="header-section-number">2.4.2.1</span> Algorithm</h4>
+<blockquote>
+<p><strong><span class="math inline">\(J=0\)</span>; <span class="math inline">\(dw_1=0\)</span>; <span class="math inline">\(dw_2=0\)</span>; <span class="math inline">\(db=0\)</span></strong> # <em>accumulators</em></p>
+<p><strong>for <span class="math inline">\(i=1\)</span> to <span class="math inline">\(m\)</span> {</strong><br />
+<strong>  <span class="math inline">\(z^{(i)} = w^Tx^{(i)} + b\)</span></strong><br />
+<strong>  <span class="math inline">\(a^{(i)} = \sigma (z^{(i)})\)</span></strong></p>
+<p><strong>  <span class="math inline">\(J = J + -[y^{(i)}\log a^{(i)} + (1-y^{(i)})\log (1-a^{(i)})]\)</span></strong><br />
+<strong>  <span class="math inline">\(dz^{(i)} = a^{(i)} - y^{(i)}\)</span></strong></p>
+<p><strong>  <span class="math inline">\(dw_1 = dw_1 + x^{(i)}_1 dz^{(i)}\)</span></strong><br />
+<strong>  <span class="math inline">\(dw_2 = dw_2 + x^{(i)}_2 dz^{(i)}\)</span></strong><br />
+<strong>    <span class="math inline">\(\vdots\)</span></strong><br />
+<strong>  <span class="math inline">\(db = db + dz^{(i)}\)</span></strong><br />
+<strong>}</strong></p>
+<p><strong><span class="math inline">\(J = J / m\)</span></strong><br />
+<strong><span class="math inline">\(dw_1 = dw_1 / m\)</span></strong><br />
+<strong><span class="math inline">\(dw_2 = dw_2 / m\)</span></strong><br />
+<strong><span class="math inline">\(db = db / m\)</span></strong></p>
+</blockquote>
+<p>Now, with all those calculations we can implement <strong>one step</strong> of the <strong>Gradient Descent</strong> algorithm.</p>
+<blockquote>
+<p><span class="math inline">\(w_1 := w_1 - \alpha \cdot dw_1\)</span><br />
+<span class="math inline">\(w_2 := w_2 - \alpha \cdot dw_2\)</span><br />
+  <span class="math inline">\(\vdots\)</span><br />
+<span class="math inline">\(b := b - \alpha \cdot db\)</span></p>
+</blockquote>
+
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Deep_Learning_Notes.pdf", "Deep_Learning_Notes.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
